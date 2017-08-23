@@ -1,0 +1,8 @@
+- hosts: 127.0.0.1
+  become : true
+  tasks:
+    - name: install locate
+      yum : name=mlocate state=latest
+
+    - name: locate updatedb
+      command : updatedb

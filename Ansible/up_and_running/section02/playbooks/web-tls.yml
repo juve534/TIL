@@ -1,0 +1,42 @@
+#- name: yum update
+#  yum : name=* state=latest
+
+- name: Configure webservers with nginx
+  hosts: webservers
+  become: true
+  vars:
+      key_file: /etc/nginx/ssl/nginx.key
+      cert_file: /etc/nginx/ssl/nginx.crt
+      conf_file: /etc/nginx/conf.d/server.conf
+      server_name: localhost
+  tasks:
+      - name: copy nginx repo file
+        copy: src=files/nginx.repo dest=/etc/yum.repos.d/nginx.repo
+
+      - name: install nginx
+        yum: name=nginx state=latest
+
+      - name: start nginx
+        service: name=nginx state=started
+
+      - name: create directory for ssl certificates
+        file: path=/etc/nginx/ssl state=directory
+
+      - name: copy TLS key
+        copy: src=files/nginx.key dest={{ key_file }} owner=root mode=0600
+        notify: restart nginx
+
+      - name: copy TLS certificate
+        copy: src=files/nginx.crt dest={{ cert_file }}
+        notify: restart nginx
+
+      - name: copy nginx config file
+        copy: src=templates/nginx.conf.j2 dest={{ conf_file }}
+        notify: restart nginx
+
+      - name: copy index.html
+        template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644
+
+  handlers:
+      - name: restart nginx
+        service: name=nginx state=restarted

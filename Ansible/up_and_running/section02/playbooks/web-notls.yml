@@ -1,0 +1,21 @@
+#- name: yum update
+#  yum : name=* state=latest
+
+- name: Configure webservers with nginx
+  hosts: webservers
+  become: true
+  tasks:
+      - name: copy nginx repo file
+        copy: src=files/nginx.repo dest=/etc/yum.repos.d/nginx.repo
+
+      - name: install nginx
+        yum: name=nginx state=latest
+
+      - name: copy nginx config file
+        copy: src=files/nginx.conf dest=/etc/nginx/conf.d/server.conf
+
+      - name: copy index.html
+        template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html mode=0644
+
+      - name: restart nginx
+        service: name=nginx state=started

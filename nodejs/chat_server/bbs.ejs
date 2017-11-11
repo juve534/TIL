@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<HEAD>
+    <TITLE>BBS</TITLE>
+    <meta charaset="utf-8"></meta>
+</HEAD>
+<BODY>
+    <form method="post">
+    <input type="text" name="name">
+    <input type="submit" value="POST!">
+    <ul>
+    <% for (var i = 0; i < posts.length; i++) { %>
+    <li><%= posts[i] %></li>
+    <% } %>
+    <ul>
+</BODY>
+</HTML>

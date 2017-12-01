@@ -1,0 +1,15 @@
+
+- name: Install PHP Library
+  hosts: web
+  tasks:
+    - name: change composer mirror
+      shell: composer config -g repos.packagist composer https://packagist.jp
+    - name: install git
+      become: true
+      yum: name=git state=latest
+    - name: install memcache client
+      become: true
+      yum: name={{ item }} state=latest
+      with_items:
+      - php71-php-pecl-memcache
+      - php71-php-pecl-memcached

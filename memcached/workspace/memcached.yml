@@ -1,0 +1,13 @@
+#- name: yum update
+#  yum : name=* state=latest
+
+- name: Install memcached
+  hosts: memcached
+  become: true
+  tasks:
+      - name: install telnet
+        yum: name=telnet state=latest
+      - name: install memcached
+        yum: name=memcached state=latest
+      - name: started memcached
+        service: name=memcached state=started

@@ -1,0 +1,28 @@
+#- name: yum update
+#  yum : name=* state=latest
+
+- name: Install PHP7.1
+  hosts: web
+  become: true
+  tasks:
+    - name: install remi repository
+      yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=present
+
+    - name: install epel repository
+      yum: name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm state=present
+
+    - name: install php
+      yum: name={{ item }} state=present enablerepo=remi-php71
+      with_items:
+      - php
+      - php-devel
+      - php-mbstring
+      - php-pdo
+      - php-mcrypt
+      - php-opcache
+      - php-xml
+      - php-xml
+    - name: install composer
+      shell: curl -sS https://getcomposer.org/installer | php
+    - name: rename composer.phar to composer
+      shell: mv composer.phar /usr/local/bin/composer

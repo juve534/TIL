@@ -1,0 +1,11 @@
+#- name: yum update
+#  yum : name=* state=latest
+
+- name: Install common
+  hosts: all
+  become: true
+  tasks:
+      - name: install telnet
+        yum: name=telnet state=latest
+      - name: install locate
+        yum: name=mlocate state=latest

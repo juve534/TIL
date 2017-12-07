@@ -80,6 +80,17 @@ PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/lib64/php/module
 
 [こちら](http://takashi-kun.hatenablog.com/entry/2013/11/23/031343)を参考に対応し、正常に動作するようになった。
 
+#### 速度比較
+PHPライブラリの読み込みと書き込みの速度を比較してみる。
+実行結果を見ると僅かな差で Memcachedが勝っているようにみえる。
+
+|ライブラリ名|書き込み|読み込み|
+|:---------|:------|:-----|
+|Memcache|0m23.270s|0m21.703s|
+|Memcached|0m19.938s|0m19.213s|
+
+[ソースコードはこちら](https://github.com/juve534/TIL/tree/develop/memcached/workspace/code)
+
 ## 参考資料
 PHPのMemcachedモジュールをインストール
 http://takashi-kun.hatenablog.com/entry/2013/11/23/031343

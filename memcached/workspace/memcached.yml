@@ -11,3 +11,5 @@
         yum: name=memcached state=latest
       - name: started memcached
         service: name=memcached state=started
+      - name: chkconfig memcached on
+        shell: chkconfig memcached on

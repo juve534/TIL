@@ -11,5 +11,5 @@
       become: true
       yum: name={{ item }} state=latest
       with_items:
-      - php71-php-pecl-memcache
-      - php71-php-pecl-memcached
+      - php72-php-pecl-memcache
+      - php72-php-pecl-memcached

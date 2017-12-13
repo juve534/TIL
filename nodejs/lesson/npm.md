@@ -72,5 +72,28 @@ npm uninstall
 ```
 これで依存関係のあるパッケージごとインストールしてくれます。
 
+### package.json にオリジナルコマンドを追加
+package.jsonもComposerと同様に、オリジナルコマンドを実行するように設定することが出来ます。  
+オリジナルコマンドとカッコつけましたが、単にShellコマンドを登録するだけですね。
+Shellはpackage.jsonのscriptsに追記することで、登録できます。
+```
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "hello": "echo \"Hello World!\""
+  },
+```
+追加したコマンドはターミナル上で実行できます。
+
+```
+npm run hello
+```
+
+またnpm run実行時に引数を渡すことが出来ます。  
+引数を渡す際は下記となります。
+```
+npm run コマンド名 -- 引数
+```
+
 ## 参考資料
 http://phiary.me/node-js-package-manager-npm-usage/
+https://qiita.com/tiny-studio/items/ce28bf84c76aba53122f

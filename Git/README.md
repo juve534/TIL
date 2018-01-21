@@ -49,3 +49,11 @@ https://qiita.com/NorsteinBekkler/items/b2418cd5e14a52189d19
 ```
 git commit --allow-empty -m "first commit"
 ```
+
+#### ファイル移動
+Gitで管理しているファイルを別のディレクトリへ移動させたいときは、  
+下記コマンドで移動させ、Gitのindexも更新すること。
+
+```
+git mv [移動したいファイル/ディレクトリのパス] [移動後のディレクトリのパス]
+```

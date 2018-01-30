@@ -1,0 +1,8 @@
+{
+    "require": {
+        "deployer/deployer": "^6.0"
+    },
+    "scripts": {
+        "dep": "vendor/deployer/deployer/bin/dep"
+    }
+}

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: kimura-tsuyoshi
- * Date: 2018/03/29
- * Time: 1:01
- */
 require_once dirname(__FILE__) . '/Fizzbuzz.php';
 $obj = new FizzBuzz();
 

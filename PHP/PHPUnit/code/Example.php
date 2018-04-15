@@ -19,10 +19,20 @@ class Example
      * @return bool
      * @throws LogicException
      */
-    public function checkNumberOwn(int $number)
+    public function checkNumberOwn(int $number):bool
     {
         if ($number !== 1) {
             throw new LogicException('Invalid Param : ' . $number);
+        }
+        return true;
+    }
+
+    public function checkExecption(int $number):bool
+    {
+        if ($number === 1) {
+            throw new LogicException('number 1');
+        } elseif ($number === 2) {
+            throw new ErrorException('number 2');
         }
         return true;
     }

@@ -44,4 +44,25 @@ class ExampleTest extends TestCase
         $obj = new Example();
         $obj->checkNumberOwn(2);
     }
+
+    public function checkExceptionDataProvider():array
+    {
+        return [
+            'number 1' => [1, \LogicException::class, 'number 1'],
+            'number 2' => [2, \ErrorException::class, 'number 2'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider checkExceptionDataProvider
+     */
+    public function checkExceptionTest($param, $errorClass, $errorMessage)
+    {
+        $this->expectException($errorClass);
+        $this->expectExceptionMessage($errorMessage);
+
+        $obj = new Example();
+        $obj->checkExecption($param);
+    }
 }

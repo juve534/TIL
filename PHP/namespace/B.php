@@ -1,4 +1,6 @@
 <?php
+namespace B;
+
 function getGreeting() {
-    return 'おはよう';
+    return 'こんにちは' . PHP_EOL;
 }

@@ -38,7 +38,8 @@ Fatal error: Cannot redeclare getGreeting() (previously declared in TIL/PHP/name
 ```
 
 これは同じ空間に同じ関数名があるために発生しています。  
-別の関数名にすれば問題は解決できますが、定義する関数名が多くなって、 `メソッド名1` とかを生み出す懸念もあります。  
+別の関数名にすれば問題は解決できますが、定義する関数名が多くなって、 `メソッド名1` とかを生み出す懸念もあります。
+
 ### 名前空間がある世界
 PHP5.3から名前空間が定義できるようになりました。  
 この名前空間を定義することで、空間を分けることができ、同名関数を存在させることができます。  
@@ -84,6 +85,32 @@ $ php call.php
 ```
 
 これで名前空間を定義し、同名関数を存在させることができました。  
+
+### サブ名前空間
+名前空間は更に細かく定義することもできます。  
+
+```php:Aa.php
+<?php
+namespace A\a;
+
+function getGreeting()
+{
+    return 'こんばんは' . PHP_EOL;
+}
+```
+
+呼び出す際は、定義した名前空間を記載します。
+
+```php:call.php
+<?php
+require_once 'A.php';
+require_once 'B.php';
+require_once 'Aa.php';
+
+echo A\a\getGreeting();
+```
+
+これで一階層深く名前空間を定義することができました。
 
 ## 参考資料
 

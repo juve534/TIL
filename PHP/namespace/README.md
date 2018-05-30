@@ -112,6 +112,46 @@ echo A\a\getGreeting();
 
 これで一階層深く名前空間を定義することができました。
 
+### useとは？
+`use` は名前空間のインポートやエイリアスの作成ができます。  
+例えば下記のように、セリエAの優勝チームを返却するメソッドがあるとします。  
+
+```php:Italia.php
+<?php
+namespace Sports\FootBall;
+
+class Italia
+{
+    public function seriaChampion() : string
+    {
+        return 'Juventus';
+    }
+}
+```
+
+この時、 `use` キーワードを使わない場合は、下記のように `Sports\FootBall\Italia` でインスタントを生成します。  
+
+```php:call.php
+<?php
+require_once 'Italia.php';
+
+$obj = new Sports\FootBall\Italia();
+echo $obj->seriaChampion() . PHP_EOL;
+```
+
+これを `use` キーワードを使うことで、下記のように短縮して呼び出すことができます。
+この時、 `call.php` 内では `Italia` という名前でインポートされており、 `use Sports\FootBall\Italia AS Italia` と同じ意味になります。
+
+```php:call.php
+<?php
+require_once 'Italia.php';
+
+use Sports\FootBall\Italia;
+
+$obj = new Italia();
+echo $obj->seriaChampion() . PHP_EOL;
+```
+
 ## 参考資料
 
 [【PHP超入門】名前空間（namespace・use）について](https://qiita.com/7968/items/1e5c61128fa495358c1f)

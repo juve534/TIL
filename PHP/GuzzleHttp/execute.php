@@ -11,10 +11,12 @@ $dotEnv->load();
 
 $obj = new GuzzleFork(new Client());
 $url = getenv('EXECUTE_URL');
+$urlList = [
+];
 
 try {
     $response = $obj->executeUrl($url);
-    var_dump($response->getStatusCode());
+    $response = $obj->requestAsync($urlList);
 } catch (\Exception $e) {
     echo $e->getMessage();
 }

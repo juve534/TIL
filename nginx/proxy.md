@@ -33,10 +33,18 @@ $ node app.js
 ### nginxでプロキシサーバを設定
 ```bash:/etc/nginx/conf.d/backend.conf
 server {
-    listen      80 default;
+    listen 80;
     server_name  localhost;
+
+    error_log  /var/log/nginx/error.log emerg;
+    access_log /var/log/nginx/access_log;
+
     location / {
         proxy_pass http://192.168.33.70:1337;
+        proxy_set_header Host             $host;
+        proxy_set_header X-Real-IP        $remote_addr;
+        proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+        proxy_set_header X-Accel-Internal /internal-nginx-static-location;
     }
 }
 ```
@@ -93,8 +101,13 @@ server {
 </html>
 ```
 ひとまずCLIからアクセスはできました。
-ブラウザからアクセスすると、タイムアウトになるので原因はまた次の機会に調査していきます。
+
+次にブラウザからアクセスしてみます。
+![デモ](img/demo.gif)
+
+これでブラウザからアクセスできることも確認でき、nginxでプロキシサーバの立ち上げができました。
 
 最後まで読んで頂きありがとうございます。
 
-
+## 参考資料
+* [さくらVPSでnode.jsをインストール＆nginxのリバースプロキシでポート80で動かすまでメモ](https://qiita.com/n0bisuke/items/1b3b4bf95b5fdfce90f8)

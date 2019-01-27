@@ -28,3 +28,34 @@ $ docker pull elasticsearch
 Using default tag: latest
 Error response from daemon: manifest for elasticsearch:latest not found
 ```
+
+## 実行
+
+```
+$ docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "network.publish_host=localhost" -v "plugins:/usr/share/elasticsearh/plugins" docker.elastic.co/elasticsearch/elasticsearch:6.5.1
+
+$ curl http://localhost:9200
+{
+  "name" : "6M-hBAk",
+  "cluster_name" : "docker-cluster",
+  "cluster_uuid" : "5SKANwC6RX6FPBbcsl8Vqw",
+  "version" : {
+    "number" : "6.5.1",
+    "build_flavor" : "default",
+    "build_type" : "tar",
+    "build_hash" : "8c58350",
+    "build_date" : "2018-11-16T02:22:42.182257Z",
+    "build_snapshot" : false,
+    "lucene_version" : "7.5.0",
+    "minimum_wire_compatibility_version" : "5.6.0",
+    "minimum_index_compatibility_version" : "5.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+
+| パラメータ | 意味 | 例 |
+|:-----------:|:------------:|:------------:|
+| discovery.type | ノード構成 | single-node |
+| network.publish_host | APIのエンドポイントとして公開するIP | localhost |
+| plugins | プラグインのディレクトリ | /usr/share/elasticsearh/plugins |

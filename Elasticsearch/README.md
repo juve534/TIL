@@ -59,3 +59,39 @@ $ curl http://localhost:9200
 | discovery.type | ノード構成 | single-node |
 | network.publish_host | APIのエンドポイントとして公開するIP | localhost |
 | plugins | プラグインのディレクトリ | /usr/share/elasticsearh/plugins |
+
+## 操作
+### INDEXの追加
+`mapping.json` に投入する `INDEX` を用意し、下記コマンドを実行します。
+```
+$ curl -XPUT http://localhost:9200/chat -H "Content-Type: application/json" -d @mapping.json
+{"acknowledged":true,"shards_acknowledged":true,"index":"chat"}
+```
+
+実行が完了したらデータを取得してみます。
+
+```
+$ curl -XGET 'http://localhost:9200/chat/_mapping/chat?pretty'
+{
+  "chat" : {
+    "mappings" : {
+      "chat" : {
+        "properties" : {
+          "created" : {
+            "type" : "date"
+          },
+          "message" : {
+            "type" : "text"
+          },
+          "tag" : {
+            "type" : "keyword"
+          },
+          "user" : {
+            "type" : "text"
+          }
+        }
+      }
+    }
+  }
+}
+```

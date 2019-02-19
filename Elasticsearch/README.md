@@ -95,3 +95,18 @@ $ curl -XGET 'http://localhost:9200/chat/_mapping/chat?pretty'
   }
 }
 ```
+
+### Go言語から実行
+#### HelloWorld
+
+1.Go言語からElasticsearchを操作します  
+操作用にライブラリを入れます。
+```bash
+go get github.com/olivere/elasti
+```
+2.[コード](./code/hello_elasticsearch.go)を実装します  
+3.コードを実行すると、Elasticsearchの数値が表示されます
+```
+$ go run Elasticsearch/code/hello_elasticsearch.go
+Elasticsearch version 6.5.1
+```

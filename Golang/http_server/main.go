@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
+	"github.com/go-chi/chi"
 	"html"
 	"log"
 	"net/http"
 )
 
 func main() {
+	r := chi.NewRouter()
 
-	http.HandleFunc("/bar", bar)
+	r.Get("/bar", bar)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
 
 func bar(w http.ResponseWriter, r *http.Request) {

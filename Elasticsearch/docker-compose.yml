@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  app:
+    image: golang:1.11
+    volumes:
+      - ./code:/app
+    links:
+      - elasticsearch
+  elasticsearch:
+    image: elasticsearch:6.5.1
+    ports:
+      - 9200:9200

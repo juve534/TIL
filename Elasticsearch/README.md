@@ -102,11 +102,105 @@ $ curl -XGET 'http://localhost:9200/chat/_mapping/chat?pretty'
 1.Go言語からElasticsearchを操作します  
 操作用にライブラリを入れます。
 ```bash
-go get github.com/olivere/elasti
+go get github.com/olivere/elastic
 ```
 2.[コード](./code/hello_elasticsearch.go)を実装します  
 3.コードを実行すると、Elasticsearchの数値が表示されます
 ```
 $ go run Elasticsearch/code/hello_elasticsearch.go
 Elasticsearch version 6.5.1
+```
+
+### アナライザー適用
+
+```
+// コンテナにssh
+$ docker exec -it コンテナID bash
+
+// コンテナ内でプラグイン適用
+# bin/elasticsearch-plugin install analysis-kuromoji
+```
+
+上記で再起動するやり方が分からなかったため、Dockerfileを作成して対応。
+```dockerfile
+FROM docker.elastic.co/elasticsearch/elasticsearch:6.5.1
+
+RUN bin/elasticsearch-plugin install analysis-kuromoji
+```
+```
+$ docker build -t ec ./
+$ docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "network.publish_host=localhost" -v "plugins:/usr/share/elasticsearh/plugins" ec
+```
+
+`curl` でアナライザーの動きを確認する
+```
+$ curl -XPOST IP:9200/Index名/_analyze?pretty -H "Content-Type: application/json" -d '{"analyzer": "Analyzer名", "text": "検索したい文字列"}'
+```
+
+アナライザーの動きを `curl` で確認する
+```
+$ curl -XPOST http://192.168.33.55:9200/chat/_analyze?pretty -H "Content-Type: application/json" -d '{"analyzer": "kuromoji_analyzer", "text": "あと十年あれば期末テストもきっと満点が取れたんだろうな"}'
+```
+```json
+{
+  "tokens" : [
+    {
+      "token" : "あと",
+      "start_offset" : 0,
+      "end_offset" : 2,
+      "type" : "word",
+      "position" : 0
+    },
+    {
+      "token" : "10",
+      "start_offset" : 2,
+      "end_offset" : 3,
+      "type" : "word",
+      "position" : 1
+    },
+    {
+      "token" : "年",
+      "start_offset" : 3,
+      "end_offset" : 4,
+      "type" : "word",
+      "position" : 2
+    },
+    {
+      "token" : "期末",
+      "start_offset" : 7,
+      "end_offset" : 9,
+      "type" : "word",
+      "position" : 5
+    },
+    {
+      "token" : "テスト",
+      "start_offset" : 9,
+      "end_offset" : 12,
+      "type" : "word",
+      "position" : 6
+    },
+    {
+      "token" : "きっと",
+      "start_offset" : 13,
+      "end_offset" : 16,
+      "type" : "word",
+      "position" : 8
+    },
+    {
+      "token" : "満点",
+      "start_offset" : 16,
+      "end_offset" : 18,
+      "type" : "word",
+      "position" : 9
+    },
+    {
+      "token" : "取れる",
+      "start_offset" : 19,
+      "end_offset" : 21,
+      "type" : "word",
+      "position" : 11
+    }
+  ]
+}
+
 ```

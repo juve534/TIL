@@ -28,8 +28,15 @@ func main() {
 		panic(err)
 	}
 
-	// message フィールドで絞り込む
-	query := elastic.NewMatchQuery("message", " テスト ")
+	// meesage に「テスト」か「試験」を含み、user01のメッセージ以外を検索する
+	query := elastic.NewBoolQuery();
+	query.Should(
+		elastic.NewMatchQuery("message", " テスト "),
+		elastic.NewMatchQuery("message", " 試験 "),
+	)
+	query.MustNot(
+		elastic.NewTermQuery("user", "user01"),
+	)
 	results, err := client.Search().Index("chat").Query(query).Do(ctx)
 	if err != nil {
 		panic(err)

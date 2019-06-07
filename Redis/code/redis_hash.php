@@ -4,8 +4,9 @@
  *
  * @var Redis
  */
-$redis = new Redis();
-$redis->connect('127.0.0.1', 6379);
+require_once 'vendor/autoload.php';
+
+$redis = new Predis\Client();
 
 // 値をセット
 $redis->hSet('hash', 'hash1', 1);

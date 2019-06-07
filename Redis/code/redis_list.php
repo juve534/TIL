@@ -4,8 +4,9 @@
  *
  * @var Redis
  */
-$redis = new Redis();
-$redis->connect('127.0.0.1', 6379);
+require_once 'vendor/autoload.php';
+
+$redis = new Predis\Client();
 
 // lPushは先頭、rPushは末尾に値をpush
 $redis->rPush('name_list', 'c');

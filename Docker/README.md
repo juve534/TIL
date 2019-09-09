@@ -1,4 +1,4 @@
-# Docker
+# Docker :whale:
 ## 概要
 Dockerについて学んだことをまとめていく。
 
@@ -52,4 +52,21 @@ docker ps -a -n=数値
 ```bash
 // スクリプト実行
 docker run centos echo "hello world"
+```
+
+### Dockerfileの操作
+自分でコンテナイメージを作ることができる。  
+その操作をまとめる。  
+
+#### ビルド
+
+```bash
+docker build -t 名前 ./
+```
+
+#### ディレクトリを指定してssh
+
+```bash
+docker run -v `ローカル`:リモート -it 名前 bash
+ex.) docker run -v `pwd`:/root/workspace -it centos bash
 ```

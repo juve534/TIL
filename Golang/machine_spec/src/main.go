@@ -29,12 +29,7 @@ func getMachineSpec() (float64, float64, float64){
 		panic(err)
 	}
 
-	// ここの処理を移植
-	// https://github.com/shirou/gopsutil/blob/1c09419d4b1c4c19e06d9f48b9406bda27d32acd/cpu/cpu.go#L106
-	busy := cpu[0].User + cpu[0].System + cpu[0].Nice + cpu[0].Iowait + cpu[0].Irq +
-		cpu[0].Softirq + cpu[0].Steal + cpu[0].Guest + cpu[0].GuestNice
-
-	cpuPersent := math.Min(100, math.Max(0, busy /(busy + cpu[0].Idle) * 100))
+	cpuPersent := CalcCpuPercent(cpu)
 
 	// ロードアベレージを取得
 	load, err := load.Avg()
@@ -43,4 +38,15 @@ func getMachineSpec() (float64, float64, float64){
 	}
 
 	return memory.UsedPercent, cpuPersent, load.Load1
+}
+
+/**
+ここの処理を移植
+https://github.com/shirou/gopsutil/blob/1c09419d4b1c4c19e06d9f48b9406bda27d32acd/cpu/cpu.go#L106
+ */
+func CalcCpuPercent(cpu []cpu.TimesStat) (float64) {
+	busy := cpu[0].User + cpu[0].System + cpu[0].Nice + cpu[0].Iowait + cpu[0].Irq +
+		cpu[0].Softirq + cpu[0].Steal + cpu[0].Guest + cpu[0].GuestNice
+
+	return math.Min(100, math.Max(0, busy /(busy + cpu[0].Idle) * 100))
 }

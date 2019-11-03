@@ -9,6 +9,9 @@ Parameters:
   MyIP:
     Description: My IP
     Type:  String
+  AmiId:
+    Description: AMI ID
+    Type: AWS::EC2::Image::Id
 
 Resources:
   FirstVPC:
@@ -79,7 +82,7 @@ Resources:
       SecurityGroupIds: 
         - !GetAtt FirstSecurityGroup.GroupId
       SubnetId: !Ref FrontendSubnet
-      ImageId: 'ami-024b748b625ec022a'
+      ImageId: !Ref AmiId
       KeyName: !Ref KeyPair
       Tags: 
         - Key: Name

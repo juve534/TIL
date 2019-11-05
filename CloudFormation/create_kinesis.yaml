@@ -1,5 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
+Parameters:
+  # Role
+  KinesisRole:
+    Description: KinesisRole
+    Type:  String
+
 Resources:
   FirstS3:
     Type: AWS::S3::Bucket
@@ -14,3 +20,15 @@ Resources:
       Tags: 
         - Key: Name
           Value: FirstS3
+  FirstFirehouce:
+    Type: AWS::KinesisFirehose::DeliveryStream
+    Properties: 
+      DeliveryStreamName: 'FirstFirehouce'
+      DeliveryStreamType: 'DirectPut'
+      ExtendedS3DestinationConfiguration:
+        BucketARN: !GetAtt FirstS3.Arn
+        BufferingHints:
+          IntervalInSeconds: '60'
+          SizeInMBs: '50'
+        CompressionFormat: GZIP
+        RoleARN: !Ref KinesisRole

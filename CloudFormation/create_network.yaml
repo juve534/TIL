@@ -87,3 +87,12 @@ Resources:
       Tags: 
         - Key: Name
           Value: FirstEC2
+  FirstEIP:
+    Type: "AWS::EC2::EIP"
+    Properties:
+      Domain: vpc
+  AttachEIP:
+    Type: AWS::EC2::EIPAssociation
+    Properties:
+      AllocationId: !GetAtt FirstEIP.AllocationId
+      InstanceId: !Ref FirstEC2

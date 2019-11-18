@@ -59,10 +59,21 @@ print(user.score)
 ### 条件分岐
 #### if文
 if-elseif-elseは下記の構成となる。
+否定の処理を使うときは、 `~=` となるので注意。
 ```
 if 条件式 then
     処理
 elseif 条件式 then
+    処理
+else
+    処理
+end
+```
+
+論理演算子として、 `and or not` を使うことができる。
+
+```
+if 条件式1 and 条件式2 then
     処理
 else
     処理

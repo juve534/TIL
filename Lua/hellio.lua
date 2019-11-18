@@ -24,3 +24,12 @@ s = "123\n456"
 print(s)
 
 print([["123\n456"]])
+
+-- テーブル(配列/連想配列)
+a = {23, 234, "hello"}
+print(a[2])
+print(#a)
+
+user = {name = "test", score = 120}
+print(user["name"])
+print(user.score)

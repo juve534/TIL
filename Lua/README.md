@@ -55,3 +55,16 @@ user = {name = "test", score = 120}
 print(user["name"])
 print(user.score)
 ```
+
+### 条件分岐
+#### if文
+if-elseif-elseは下記の構成となる。
+```
+if 条件式 then
+    処理
+elseif 条件式 then
+    処理
+else
+    処理
+end
+```

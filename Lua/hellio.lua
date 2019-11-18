@@ -33,3 +33,13 @@ print(#a)
 user = {name = "test", score = 120}
 print(user["name"])
 print(user.score)
+
+-- 条件分岐
+score = 45
+if score > 60 then
+    print("OK!")
+elseif score > 40 then
+    print("SELF")
+else
+    print("NG!")
+end

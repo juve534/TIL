@@ -18,3 +18,9 @@ print(x)
 
 x = 2 ^ 3
 print(x)
+
+-- 文字列
+s = "123\n456"
+print(s)
+
+print([["123\n456"]])

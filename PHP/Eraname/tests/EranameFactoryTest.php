@@ -11,14 +11,28 @@ class EraNameFactoryTest extends TestCase
 {
     /**
      * @test
+     * @dataProvider EraNameDataProvider()
      */
-    public function testHeisei()
+    public function testEraName($name)
     {
-        $name = 'heisei';
         $obj = new EraNameFactory();
         $gengo = $obj->createInstance($name);
-        var_dump(strval($gengo));
 
         $this->assertEquals($name, strval($gengo));
+    }
+
+    public function EraNameDataProvider()
+    {
+        return [
+            '昭和' => [
+                'name' => 'showa',
+            ],
+            '平成' => [
+                'name' => 'heisei',
+            ],
+            '令和' => [
+                'name' => 'reiwa',
+            ],
+        ];
     }
 }

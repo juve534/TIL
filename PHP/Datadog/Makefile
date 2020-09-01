@@ -16,3 +16,6 @@ composer:
 
 bref:
 	docker-compose exec $(container) vendor/bin/bref $(CMD)
+
+deploy:
+	docker-compose exec $(container) serverless deploy

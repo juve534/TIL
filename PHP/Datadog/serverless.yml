@@ -10,7 +10,7 @@ plugins:
 
 functions:
     api:
-        handler: index.php
+        handler: public/index.php
         description: ''
         timeout: 28 # in seconds (API Gateway has a timeout of 29 seconds)
         layers:

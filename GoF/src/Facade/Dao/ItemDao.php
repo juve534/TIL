@@ -42,7 +42,7 @@ class ItemDao
         return self::$instance;
     }
 
-    public function findById($item_id): Item
+    public function findById($item_id): ?Item
     {
         if (array_key_exists($item_id, $this->items)) {
             return $this->items[$item_id];

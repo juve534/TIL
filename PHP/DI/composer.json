@@ -1,0 +1,28 @@
+{
+    "name": "juve534/lesson-di",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Juve534\\LessonDi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.2",
+        "cakephp/http": "^4.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4",
+        "mockery/mockery": "^1.4"
+    },
+    "authors": [
+        {
+            "name": "juve534",
+            "email": "maxim_4141.rock@zoho.com"
+        }
+    ]
+}

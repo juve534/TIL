@@ -1,0 +1,19 @@
+version: '3.7'
+
+volumes:
+  logs:
+    driver: local
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - app_net
+
+networks:
+  app_net:
+    driver: bridge

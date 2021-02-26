@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>JavaScript勉強会ハンズオン1</title>
+</head>
+<body>
+<form>
+    <dl>
+        <dt>ジャンル</dt>
+        <dd class="genre">
+            <label>
+                <input type="checkbox" name="genre" value="j-pop" />J-POP
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="rock" />ROCK
+            </label>
+            <label>
+                <input type="checkbox" name="genre" value="classic" />CLASSIC
+            </label>
+        </dd>
+        <dt>キーワード</dt>
+        <dd class="keyword"><input type="text" name="keyword" /></dd>
+    </dl>
+    <button class="search">検索</button>
+    <button class="reset">リセット</button>
+</form>
+<script>
+    // varの巻き上げを考慮して最初に使用する変数を定義しておく
+    var searchParams, userSelectedParams;
+
+    // 検索パラメータのデフォルト値
+    searchParams = {
+        keyword: "",
+        genre: {
+            "j-pop": false,
+            rock: false,
+            classic: false,
+        },
+    };
+
+    userSelectedParams = Object.assign({}, searchParams);
+    userSelectedParams.genre = Object.assign({}, searchParams.genre);
+</script>
+
+<script>
+    var genreList, searchButton, resetButton, keyword;
+
+    searchButton = document.querySelector(".search");
+    searchButton.addEventListener("click", function(event) {
+        event.preventDefault();
+
+        genreList = getSelectGenre();
+        genreList.forEach(function(genre) {
+            userSelectedParams.genre[genre.value] = genre.checked;
+        });
+
+        keyword = getKeyword();
+        userSelectedParams.keyword = keyword.value;
+
+        console.log("userSelectedParams:",userSelectedParams);
+    });
+
+    resetButton = document.querySelector(".reset");
+    resetButton.addEventListener("click", function(event) {
+        event.preventDefault()
+        userSelectedParams = Object.assign({}, searchParams);
+        userSelectedParams.genre = Object.assign({}, searchParams.genre);
+
+        genreList = getSelectGenre();
+        genreList.forEach(function(genre) {
+            genre.checked = false;
+        });
+
+        keyword = getKeyword();
+        keyword.value = "";
+
+        console.log("userSelectedParams:", userSelectedParams);
+    });
+
+    var getSelectGenre = function () {
+        return document.querySelectorAll(".genre input");
+    }
+    var getKeyword = function () {
+        return document.querySelector(".keyword input");
+    }
+</script>
+</body>
+</html>

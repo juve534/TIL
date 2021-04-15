@@ -1,0 +1,17 @@
+{
+    "name": "juve534/lesson-que",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Juve534\\LessonQue\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "aws/aws-sdk-php": "^3.178"
+    }
+}

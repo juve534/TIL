@@ -1,0 +1,33 @@
+version: '3.7'
+
+volumes:
+  logs:
+    driver: local
+
+services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./docker/nginx:/etc/nginx/conf.d
+      - ./:/var/www/html
+    ports:
+      - 8088:80
+    depends_on:
+      - app
+    networks:
+      - reactphp_net
+
+  app:
+    # https://github.com/juve534/TIL/pull/132 で作成したイメージを流用
+    image: juve534/php-fpm:8.0
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/var/www/html
+    command: ["php", "server.php"]
+    networks:
+      - reactphp_net
+
+networks:
+  reactphp_net:
+    driver: bridge

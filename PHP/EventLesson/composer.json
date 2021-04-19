@@ -1,0 +1,25 @@
+{
+    "name": "juve534/lesson-que",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Juve534\\EventLesson\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "aws/aws-sdk-php": "^3.178"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "scripts": {
+        "test": [
+            "@php ./vendor/bin/phpunit tests"
+        ]
+    }
+}

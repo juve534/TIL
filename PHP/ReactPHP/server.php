@@ -1,20 +1,33 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * ReactPHPを使って非同期処理実装
  * @author juve534
  */
 require_once 'vendor/autoload.php';
 
-$loop   = React\EventLoop\Factory::create();
-$socket = new React\Socket\Server($loop);
-$http   = new React\Http\Server($socket);
+use React\EventLoop\Factory;
+use Psr\Http\Message\ServerRequestInterface;
+use React\Http\Message\Response;
+use React\Socket\Server;
 
-$http->on('request', function($request, $response) {
-    $response->writeHead(200, [
-       "Content-Type" => "text/plain",
-    ]);
-    $response->end('Hello');
+$loop = Factory::create();
+
+$server = new React\Http\Server($loop, function (ServerRequestInterface $request) {
+    return new Response(
+        200,
+        array(
+            'Content-Type' => 'text/plain'
+        ),
+        "Hello World!\n"
+    );
 });
 
-$socket->listen(8080, '192.168.33.10');
+$socket = new Server('127.0.0.1:8080', $loop);
+$server->listen($socket);
+
+echo "Server running at http://127.0.0.1:8080\n";
+
 $loop->run();

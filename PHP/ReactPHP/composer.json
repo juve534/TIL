@@ -1,5 +1,15 @@
 {
+    "autoload": {
+        "psr-4": {
+            "Juve534\\LessonServer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "require": {
-        "react/react": "^0.4.2"
+        "react/react": "^1.1"
     }
 }

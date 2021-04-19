@@ -1,0 +1,26 @@
+version: '3.7'
+
+volumes:
+  logs:
+    driver: local
+
+services:
+  app:
+    # https://github.com/juve534/TIL/pull/132 で作成したイメージを流用
+    image: juve534/php-fpm:8.0
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - que_net
+
+  # ElasticMQ
+  elasticmq:
+    image: softwaremill/elasticmq
+    volumes:
+      - ./docker/elasticmq/custom.conf://opt/elasticmq.conf
+    networks:
+      - que_net
+
+networks:
+  que_net:
+    driver: bridge

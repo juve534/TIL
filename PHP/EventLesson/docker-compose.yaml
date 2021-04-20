@@ -21,6 +21,13 @@ services:
     networks:
       - que_net
 
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    networks:
+      - que_net
+
 networks:
   que_net:
     driver: bridge

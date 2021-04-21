@@ -7,11 +7,10 @@ use Psr\Http\Client\ClientInterface;
 
 class UseDiInterface
 {
-    private ClientInterface $client;
-
-    public function __construct(ClientInterface $client)
+    public function __construct(
+        private ClientInterface $client
+    )
     {
-        $this->client = $client;
     }
 
     public function getGoogle()

@@ -1,0 +1,17 @@
+version: '3.7'
+
+volumes:
+  logs:
+    driver: local
+
+services:
+  app:
+    image: juve534/bref:8.0
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - bref_net
+
+networks:
+  bref_net:
+    driver: bridge

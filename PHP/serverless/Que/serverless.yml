@@ -1,0 +1,39 @@
+service: app-que
+
+provider:
+    name: aws
+    region: ap-northeast-1
+    runtime: provided.al2
+
+plugins:
+    - ./vendor/bref/bref
+
+functions:
+    worker:
+        handler: index.php
+        description: ''
+        layers:
+            - ${bref:layer.php-80}
+        events:
+          - sqs:
+              arn:
+                Fn::GetAtt:
+                  - PhpQueue
+                  - Arn
+
+resources:
+  Resources:
+    PhpQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: phpqueue
+
+# Exclude files from deployment
+package:
+    exclude:
+        - 'tests/**'
+        - 'docker-compose.yaml'
+        - '*.md'
+        - '.env'
+        - 'env.sample'
+        - '*.sh'

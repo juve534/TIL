@@ -23,5 +23,12 @@
     "aws-cdk-lib": "2.5.0",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.16"
+  },
+  "resolutions": {
+    "aws-cdk-lib": "2.5.0",
+    "typescript": "~3.9.7"
+  },
+  "engines": {
+    "node": "16.12.x"
   }
 }

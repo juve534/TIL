@@ -1,0 +1,7 @@
+resources:
+  - deployment.yaml
+  - service.yaml
+  - namespace.yaml
+
+commonLabels:
+  app: first-app-proxy

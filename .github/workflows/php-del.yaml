@@ -2,16 +2,24 @@ name: "Run php-del"
 on:
   workflow_dispatch:
     inputs:
-      flag:
-        description: '削除対象flag名'
+      tag:
+        description: '削除対象tag名'
         required: true
 
 jobs:
-  run-load-test:
-    name: "Run php-del"
+  run-add-tag:
+    name: "Run Add Tag"
     runs-on: ubuntu-latest
     steps:
+#      - name: git update
+#        run: |
+#          git --version
+#          sudo add-apt-repository ppa:git-core/ppa
+#          sudo apt update
+#          sudo apt install git
+#          git --version
       - uses: actions/checkout@v3
-      - name: print log
+      - name: Add Tag
         run: |
-          echo "Hello! ${{ github.event.inputs.flag }}"
+          git tag ${{ github.event.inputs.tag }}
+          git push origin ${{ github.event.inputs.tag }}

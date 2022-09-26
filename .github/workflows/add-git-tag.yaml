@@ -1,0 +1,18 @@
+name: "Add Git Tag"
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '削除対象tag名'
+        required: true
+
+jobs:
+  add-git-tag:
+    name: "Add Git Tag"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Add Tag
+        run: |
+          git tag ${{ github.event.inputs.tag }}
+          git push origin ${{ github.event.inputs.tag }}
